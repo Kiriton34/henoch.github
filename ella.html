@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva de Año Nuevo 2025</title>
+    <link rel="stylesheet" href="../henc.html/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cuenta Regresiva de Año Nuevo</h1>
+
+        <!-- Primera validación -->
+        <div id="primera-validacion">
+            <label for="inicio">Escriba 'iniciar' para comenzar la cuenta regresiva:</label>
+            <input type="text" id="iniciarInput" placeholder="Escriba 'iniciar'">
+            <button onclick="iniciarCuentaRegresiva()">Iniciar</button>
+        </div>
+
+        <!-- Cuenta regresiva -->
+        <div id="cuentaRegresiva" class="countdown" style="display:none;">
+            <p>Faltan:</p>
+            <div class="countdown-items">
+                <p><span id="diasRestantes"></span> días</p>
+                <p><span id="horasRestantes"></span> horas</p>
+                <p><span id="minutosRestantes"></span> minutos</p>
+                <p><span id="segundosRestantes"></span> segundos</p> 
+                <p>para el nuevo año</p>
+            </div>
+        </div>
+
+        <!-- Segunda validación -->
+        <div id="segunda-validacion" style="display:none;">
+            <p>¿Cuál es tu nombre?</p>
+            <input type="text" id="nombreInput" placeholder="Introduce tu nombre">
+            <p>¿Cómo te llamo yo?</p>
+            <input type="text" id="referenciaInput" placeholder="Introduce tu referencia">
+            <button onclick="validarDatos()">Validar</button>
+        </div>
+
+        <!-- Saludo personalizado -->
+        <div id="saludo" style="display:none;">
+            <h2 id="saludoTexto"></h2>
+            <p id="fraseInspiradora"></p>
+        </div>
+
+        <!-- Botón para ir al collage -->
+        <div id="collageSection" style="display:none;">
+            <button onclick="irAlCollage()">Ir al Collage</button>
+        </div>
+    </div>
+
+
+
+    <script>
+    let cuentaRegresivaInterval;
+
+function iniciarCuentaRegresiva() {
+    const iniciarInput = document.getElementById("iniciarInput").value.trim().toLowerCase();
+    if (iniciarInput === "iniciar") {
+        document.getElementById("primera-validacion").style.display = "none";
+        iniciarCuentaRegresivaReal();
+    } else {
+        alert("Por favor, escribe 'iniciar' para comenzar.");
+    }
+}
+
+function iniciarCuentaRegresivaReal() {
+    // Establecer la fecha objetivo como 1 de enero de 2025 a las 00:00:00 en hora colombiana
+    const finDeAno = new Date(Date.UTC(2025, 0, 1, 5, 0, 0)); // 00:00 Colombia (UTC-5)
+
+    document.getElementById("cuentaRegresiva").style.display = "block";
+
+    cuentaRegresivaInterval = setInterval(() => {
+        const ahoraActualizado = new Date();
+        const tiempoRestante = finDeAno - ahoraActualizado;
+
+        if (tiempoRestante <= 0) {
+            clearInterval(cuentaRegresivaInterval);
+            document.getElementById("cuentaRegresiva").innerHTML = "<h2>¡Feliz Año Nuevo!</h2>";
+            document.getElementById("segunda-validacion").style.display = "block";
+            return;
+        }
+
+        const diasRestantes = Math.floor(tiempoRestante / (1000 * 60 * 60 * 24));
+        const horasRestantes = Math.floor((tiempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutosRestantes = Math.floor((tiempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+        const segundosRestantes = Math.floor((tiempoRestante % (1000 * 60)) / 1000);
+
+        document.getElementById("diasRestantes").innerText = diasRestantes;
+        document.getElementById("horasRestantes").innerText = horasRestantes;
+        document.getElementById("minutosRestantes").innerText = minutosRestantes;
+        document.getElementById("segundosRestantes").innerText = segundosRestantes;
+    }, 1000);
+}
+
+// Función para validar los datos
+function validarDatos() {
+    const nombre = document.getElementById("nombreInput").value;
+    const referencia = document.getElementById("referenciaInput").value;
+
+    if (nombre === "Henoch lindarte" && referencia === "Mi psicóloga") {
+        document.getElementById("segunda-validacion").style.display = "none";
+        mostrarSaludo(nombre);
+    } else {
+        alert("Datos incorrectos.");
+    }
+}
+
+// Función para mostrar un saludo personalizado
+function mostrarSaludo(nombre) {
+    const frases = [
+        "¡Que este nuevo año te traiga mucha felicidad y éxitos!",
+        "El futuro pertenece a aquellos que creen en la belleza de sus sueños.",
+        "Cada día es una nueva oportunidad para brillar.",
+        "Este año será el comienzo de algo increíble para ti.",
+        "El éxito es la suma de pequeños esfuerzos repetidos día tras día."
+    ];
+
+    document.getElementById("saludoTexto").innerText = "¡Feliz Año Nuevo, " + nombre + "!";
+    document.getElementById("fraseInspiradora").innerText = frases[Math.floor(Math.random() * frases.length)];
+    document.getElementById("saludo").style.display = "block";
+    document.getElementById("collageSection").style.display = "block";
+}
+
+// Función para ir al collage
+function irAlCollage() {
+    window.location.href = "collage.html";
+}
+</script>
+</body>
+</html>

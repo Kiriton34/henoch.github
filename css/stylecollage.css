@@ -1,0 +1,66 @@
+/* Estilos generales del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    background: url('../img/27230.jpg') no-repeat center center fixed;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedor principal del collage */
+.collage-container {
+    background-color: white;
+    background: url('../img/fondo.jpg') no-repeat center center fixed;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 900px;
+    width: 100%;
+}
+
+/* Estilo del título */
+h1 {
+    text-align: center;
+    color: #f5f2f2;
+    margin-bottom: 20px;
+}
+
+/* Diseño de cuadrícula para el collage */
+.collage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* Contenedores de imágenes y videos */
+.image-box, .video-box {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Imágenes y videos responsivos */
+.image-box img, .video-box video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto hover para imágenes y videos */
+.image-box img:hover, .video-box video:hover {
+    transform: scale(1.05);
+}
+
+/* Reproductor de audio */
+audio {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+}
